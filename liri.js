@@ -4,6 +4,8 @@ var request = require("request");
 var inputString = process.argv;
 var command = inputString[2];
 var title = inputString[3];
+var Twitter = require('twitter');
+var spotify = require("node-spotify-api");
 
 // global variables end
 
@@ -11,32 +13,28 @@ var title = inputString[3];
 
 if (command == "my-tweets") {
 
-	var Twitter = require('twitter');
-
-	var client = new Twitter({
-    
-    	consumer_key: 'gQrom65Eue7x9KeghiTJR0liI',
-		consumer_secret: 'LkCv3n4Hx5Sw0HptNKPDS73bXuuBST4MuMjoa4DZI9UzBahT7u',
+ 	var client = new Twitter({
+  		consumer_key: 'gQrom65Eue7x9KeghiTJR0liI',
+  		consumer_secret: 'LkCv3n4Hx5Sw0HptNKPDS73bXuuBST4MuMjoa4DZI9UzBahT7u',
   		access_token_key: '883943556997566464-r6cro3jDpaTTAGuPa0VFCTFhkjyGuOi',
   		access_token_secret: '9STqvuSloTzWlywF6av8od8G2u0vycCI4CP8LPSvYX0Gt'
 	});
-
-	client.get('favorites/list', function(error, tweets, response) {
-  		if (!error && response.statusCode === 200){
-  			console.log(tweets);  // The favorites. 
-  			console.log(response);  // Raw response object.
-		} 
+ 
+	var params = {screen_name: 'nodejs'};
+	client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  		if (!error) {
+    		console.log(tweets);
+  		}
 	});
+} 	
 
 // twitter end
 
-} 
+
 
 // spotify start
 
 else if (command == "spotify-this-song") {
-
-var spotify = require("node-spotify-api");
 
 var spotify = new Spotify({
   id: "2716dad05b7545958cc412fa5beae628",
