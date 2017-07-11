@@ -93,6 +93,18 @@ else if (command == "movie-this") {
 
  else if (command == "do-what-it-says") {
 
+ 	var fs = require("fs");
+
+ 	fs.readFile("random.txt", "utf8", function(error, data){
+
+ 		if (error) {
+ 			return console.log(error);
+ 		}
+
+ 		console.log(data);
+
+ 	});
+
 }
 
 
